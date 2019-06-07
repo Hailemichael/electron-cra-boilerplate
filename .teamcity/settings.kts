@@ -34,7 +34,7 @@ project {
     buildType(BuildAndPackage)
 
     params {
-        param("env.NEXUS_USER", "admin")
+        param("env.NEXUS_USERNAME", "admin")
         password("env.NEXUS_PASSWORD", "credentialsJSON:72b5d0af-8e0e-4b87-8673-5e3b1c0de65c", label = "NEXUS_Credentials", display = ParameterDisplay.PROMPT, readOnly = true)
     }
 }
@@ -79,9 +79,15 @@ object BuildAndPackage : BuildType({
             scriptContent = """
                 yarn install
                 yarn test
-                echo ${'$'}NEXUS_USER:${'$'}NEXUS_PASSWORD
+                echo ${'$'}NEXUS_USERNAME:${'$'}NEXUS_PASSWORD
                 yarn preelectron-pack
                 yarn electron:pack
+                EXE_FILE=${'$'}(ls dist/ | grep ".exe${'$'}")
+                echo "uploading exe file with name: ${'$'}EXE_FILE"
+                [[ ! -z "${'$'}EXE_FILE" ]] && curl -v -u ${'$'}NEXUS_USERNAME:${'$'}NEXUS_PASSWORD --upload-file dist/"${'$'}EXE_FILE" http://localhost:8081/repository/bundle/pricer/store-app/manager/
+                DMG_FILE=${'$'}(ls dist/ | grep ".dmg${'$'}")
+                echo "uploading dmg file with name: ${'$'}DMG_FILE"
+                [[ ! -z "${'$'}DMG_FILE" ]] && curl -v -u ${'$'}NEXUS_USERNAME:${'$'}NEXUS_PASSWORD --upload-file dist/"${'$'}DMG_FILE" http://localhost:8081/repository/bundle/pricer/store-app/manager/
             """.trimIndent()
             dockerImage = "node:latest"
             dockerImagePlatform = ScriptBuildStep.ImagePlatform.Linux

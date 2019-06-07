@@ -1,8 +1,7 @@
 {
   "name": "my-app",
   "description": "Electron + Create React App + Electron Builder",
-  "version": "0.1.0",
-  "private": true,
+  "version": "0.1.1",
   "author": {
     "name": "Your Name",
     "email": "your.email@domain.com",

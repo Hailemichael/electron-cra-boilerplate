@@ -60,7 +60,7 @@ object BuildAndPackage : BuildType({
                 echo "uploading dmg file with name: ${'$'}DEB_FILE"
                 [[ ! -z "${'$'}DEB_FILE" ]] && curl -v -u ${'$'}NEXUS_USERNAME:${'$'}NEXUS_PASSWORD --upload-file dist/"${'$'}DEB_FILE" http://localhost:8081/repository/bundle/pricer/store-app/manager/
             """.trimIndent()
-            dockerImage = "node:latest"
+            dockerImage = "electronuserland/builder:wine"
             dockerImagePlatform = ScriptBuildStep.ImagePlatform.Linux
             dockerPull = true
         }

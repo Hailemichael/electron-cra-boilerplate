@@ -12,7 +12,7 @@
     "productName": "MyApp",
     "copyright": "Copyright © 2019 ${author}",
     "win": {
-      "icon": "assets/icons/linux/app.ico",
+      "icon": "assets/icons/win/app.ico",
       "target": [
         {
           "target": "nsis",

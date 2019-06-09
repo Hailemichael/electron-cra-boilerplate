@@ -11,8 +11,23 @@
     "appId": "com.my-website.my-app",
     "productName": "MyApp",
     "copyright": "Copyright © 2019 ${author}",
-    "mac": {
-      "category": "public.app-category.utilities"
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64",
+            "ia32"
+          ]
+        }
+      ]
+    },
+    "linux": {
+      "target": [
+        {
+          "target": "deb"
+        }
+      ]
     },
     "files": [
       "build/**/*",
@@ -38,7 +53,7 @@
     "electron-dev": "concurrently \"BROWSER=none yarn start\" \"wait-on http://localhost:3000 && electron .\"",
     "postinstall": "electron-builder install-app-deps",
     "preelectron-pack": "yarn build",
-    "electron:pack": "build -mwl"
+    "electron:pack": "build -wl"
   },
   "eslintConfig": {
     "extends": "react-app"

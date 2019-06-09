@@ -85,9 +85,9 @@ object BuildAndPackage : BuildType({
                 EXE_FILE=${'$'}(ls dist/ | grep ".exe${'$'}")
                 echo "uploading exe file with name: ${'$'}EXE_FILE"
                 [[ ! -z "${'$'}EXE_FILE" ]] && curl -v -u ${'$'}NEXUS_USERNAME:${'$'}NEXUS_PASSWORD --upload-file dist/"${'$'}EXE_FILE" http://localhost:8081/repository/bundle/pricer/store-app/manager/
-                DMG_FILE=${'$'}(ls dist/ | grep ".dmg${'$'}")
-                echo "uploading dmg file with name: ${'$'}DMG_FILE"
-                [[ ! -z "${'$'}DMG_FILE" ]] && curl -v -u ${'$'}NEXUS_USERNAME:${'$'}NEXUS_PASSWORD --upload-file dist/"${'$'}DMG_FILE" http://localhost:8081/repository/bundle/pricer/store-app/manager/
+                DEB_FILE=${'$'}(ls dist/ | grep ".deb${'$'}")
+                echo "uploading dmg file with name: ${'$'}DEB_FILE"
+                [[ ! -z "${'$'}DEB_FILE" ]] && curl -v -u ${'$'}NEXUS_USERNAME:${'$'}NEXUS_PASSWORD --upload-file dist/"${'$'}DEB_FILE" http://localhost:8081/repository/bundle/pricer/store-app/manager/
             """.trimIndent()
             dockerImage = "electronuserland/builder:wine"
             dockerImagePlatform = ScriptBuildStep.ImagePlatform.Linux
